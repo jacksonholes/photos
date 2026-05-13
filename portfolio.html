@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #f5f1eb;
+    --ink: #1a1714;
+    --warm-gray: #8c8680;
+    --accent: #c4955a;
+    --light-line: #e2ddd7;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 3rem;
+    background: rgba(245,241,235,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--light-line);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 70px;
+  }
+
+  .hero-text {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 4rem 6rem 5rem;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.6rem;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.2rem, 5vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.07;
+    margin-bottom: 2rem;
+    color: var(--ink);
+  }
+
+  .hero-title em { font-style: italic; color: var(--accent); }
+
+  .hero-sub {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--warm-gray);
+    max-width: 340px;
+    margin-bottom: 2.8rem;
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.85rem 1.8rem;
+    border: 1px solid var(--ink);
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.25s, color 0.25s;
+    width: fit-content;
+  }
+  .btn:hover { background: var(--ink); color: var(--cream); }
+  .btn svg { transition: transform 0.25s; }
+  .btn:hover svg { transform: translateX(4px); }
+
+  .hero-image {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-image img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.88);
+  }
+
+  /* decorative corner lines */
+  .hero-image::before {
+    content: '';
+    position: absolute; top: 2rem; right: 2rem;
+    width: 60px; height: 60px;
+    border-top: 1px solid rgba(255,255,255,0.6);
+    border-right: 1px solid rgba(255,255,255,0.6);
+    z-index: 2;
+  }
+
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--warm-gray);
+  }
+  .hero-scroll .line {
+    width: 1px; height: 40px; background: var(--accent);
+    animation: scrollLine 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* ── STATS BAR ── */
+  .stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--light-line);
+    border-bottom: 1px solid var(--light-line);
+  }
+  .stat {
+    padding: 2.4rem 3rem;
+    border-right: 1px solid var(--light-line);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem; font-weight: 300;
+    color: var(--ink); display: block; margin-bottom: 0.3rem;
+  }
+  .stat-label {
+    font-size: 0.72rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--warm-gray);
+  }
+
+  /* ── GALLERY ── */
+  #gallery { padding: 6rem 3rem; }
+
+  .section-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 3.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--light-line);
+  }
+
+  .section-eyebrow {
+    font-size: 0.7rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem; font-weight: 300; line-height: 1.1;
+  }
+
+  .section-note {
+    font-size: 0.82rem; color: var(--warm-gray); text-align: right; max-width: 240px;
+  }
+
+  /* Google Photos how-to banner */
+  .photos-banner {
+    background: white;
+    border: 1px solid var(--light-line);
+    border-left: 3px solid var(--accent);
+    padding: 1.2rem 1.6rem;
+    margin-bottom: 2.5rem;
+    border-radius: 2px;
+    display: flex; align-items: flex-start; gap: 1rem;
+  }
+  .photos-banner-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+  .photos-banner p { font-size: 0.82rem; line-height: 1.65; color: var(--warm-gray); }
+  .photos-banner strong { color: var(--ink); }
+  .photos-banner code {
+    background: var(--cream); padding: 0.1em 0.4em;
+    border-radius: 3px; font-size: 0.78rem; color: var(--accent);
+  }
+
+  /* masonry-style grid */
+  .gallery-grid {
+    columns: 3;
+    column-gap: 1.2rem;
+  }
+
+  .gallery-item {
+    break-inside: avoid;
+    margin-bottom: 1.2rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--light-line);
+  }
+
+  .gallery-item img {
+    width: 100%; display: block;
+    transition: transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94),
+                filter 0.4s;
+    filter: saturate(0.85);
+  }
+  .gallery-item:hover img { transform: scale(1.04); filter: saturate(1); }
+
+  .gallery-item-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(26,23,20,0.65) 0%, transparent 55%);
+    opacity: 0; transition: opacity 0.35s;
+    display: flex; align-items: flex-end; padding: 1.2rem;
+  }
+  .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+
+  .gallery-item-caption {
+    color: white; font-size: 0.78rem;
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  /* placeholder cards for demo */
+  .gallery-placeholder {
+    width: 100%;
+    background: var(--light-line);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 0.5rem;
+    color: var(--warm-gray); font-size: 0.78rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-align: center; padding: 1.5rem;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    display: grid; grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--light-line);
+  }
+
+  .about-image {
+    position: relative; overflow: hidden;
+    min-height: 560px;
+  }
+  .about-image img {
+    width: 100%; height: 100%;
+    object-fit: cover; filter: saturate(0.8);
+  }
+  .about-image::after {
+    content: '';
+    position: absolute; bottom: 2rem; left: 2rem;
+    width: 60px; height: 60px;
+    border-bottom: 1px solid rgba(196,149,90,0.8);
+    border-left: 1px solid rgba(196,149,90,0.8);
+  }
+
+  .about-text {
+    padding: 6rem 5rem 6rem 4rem;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+
+  .about-text .section-eyebrow { margin-bottom: 0.8rem; }
+  .about-text .section-title { margin-bottom: 2rem; font-size: 2.4rem; }
+
+  .about-body {
+    font-size: 0.95rem; line-height: 1.85;
+    color: var(--warm-gray); margin-bottom: 2rem;
+  }
+
+  .about-signature {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-style: italic; font-weight: 300;
+    color: var(--accent); margin-top: 1rem;
+  }
+
+  /* ── CONTACT / FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 5rem 3rem;
+    border-top: 1px solid var(--light-line);
+  }
+
+  .footer-eyebrow { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+
+  .footer-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem; font-weight: 300;
+    margin-bottom: 2rem; line-height: 1.1;
+  }
+
+  .footer-links {
+    display: flex; justify-content: center; gap: 2rem;
+    list-style: none; margin-bottom: 4rem;
+  }
+  .footer-links a {
+    font-size: 0.75rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--warm-gray);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--ink); }
+
+  .footer-copy {
+    font-size: 0.72rem; color: var(--light-line);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    display: none; position: fixed; inset: 0; z-index: 999;
+    background: rgba(26,23,20,0.95);
+    align-items: center; justify-content: center;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 90vw; max-height: 88vh;
+    object-fit: contain;
+  }
+  .lightbox-close {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    background: none; border: none;
+    color: white; font-size: 1.8rem; cursor: pointer;
+    opacity: 0.7; transition: opacity 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .lightbox-close:hover { opacity: 1; }
+
+  /* ── ANIMATIONS ── */
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.75s ease, transform 0.75s ease; }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #home { grid-template-columns: 1fr; }
+    .hero-image { display: none; }
+    .hero-text { padding: 4rem 1.5rem; }
+    .stats { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--light-line); }
+    #gallery { padding: 4rem 1.5rem; }
+    .gallery-grid { columns: 2; }
+    #about { grid-template-columns: 1fr; }
+    .about-image { min-height: 300px; }
+    .about-text { padding: 3rem 1.5rem; }
+    footer { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">Your Name</a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-text fade-in">
+    <p class="hero-eyebrow">Travel Photography</p>
+    <h1 class="hero-title">
+      Capturing<br><em>moments</em><br>the world over
+    </h1>
+    <p class="hero-sub">
+      A visual journey through light, culture, and landscape — from dusty backroads to mountain horizons.
+    </p>
+    <a href="#gallery" class="btn">
+      View Gallery
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+  <div class="hero-image">
+    <!-- Replace src with your own hero photo URL -->
+    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=80" alt="Mountain landscape" loading="lazy">
+  </div>
+  <div class="hero-scroll">
+    <div class="line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat fade-in">
+    <span class="stat-num">34</span>
+    <span class="stat-label">Countries visited</span>
+  </div>
+  <div class="stat fade-in" style="transition-delay:0.1s">
+    <span class="stat-num">1,200+</span>
+    <span class="stat-label">Photos taken</span>
+  </div>
+  <div class="stat fade-in" style="transition-delay:0.2s">
+    <span class="stat-num">8</span>
+    <span class="stat-label">Years exploring</span>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-header fade-in">
+    <div>
+      <p class="section-eyebrow">Portfolio</p>
+      <h2 class="section-title">Travel Gallery</h2>
+    </div>
+    <p class="section-note">Click any photo to view full size</p>
+  </div>
+
+  <!-- HOW TO ADD GOOGLE PHOTOS -->
+  <div class="photos-banner fade-in">
+    <div class="photos-banner-icon">📸</div>
+    <div>
+      <p>
+        <strong>How to add your Google Photos here:</strong>
+        Open Google Photos → select a photo → click the share icon → choose "Create link" → right-click the photo and select "Copy image address". 
+        Then replace each <code>src="..."</code> in the gallery items below with your Google Photos URLs.
+        For a whole album, use <strong>Google Photos API</strong> — ask Claude to add the API integration once you have a Google Cloud account.
+      </p>
+    </div>
+  </div>
+
+  <div class="gallery-grid">
+
+    <!-- GALLERY ITEMS — replace the src URLs with your Google Photos image links -->
+
+    <div class="gallery-item fade-in" onclick="openLightbox(this)">
+      <img src="https://images.unsplash.com/photo-1539108136092-f33b514da27a?w=600&q=80" alt="Temple at dusk" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="gallery-item-caption">Kyoto, Japan</span>
+      </div>
+    </div>
+
+    <div class="gallery-item fade-in" style="transition-delay:0.05s" onclick="openLightbox(this)">
+      <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=80" alt="Desert dunes" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="gallery-item-caption">Sahara, Morocco</span>
+      </div>
+    </div>
+
+    <div class="gallery-item fade-in" style="transition-delay:0.1s" onclick="openLightbox(this)">
+      <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80" alt="Cliffside village" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="gallery-item-caption">Santorini, Greece</span>
+      </div>
+    </div>
+
+    <div class="gallery-item fade-in" style="transition-delay:0.05s" onclick="openLightbox(this)">
+      <img src="https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=600&q=80" alt="Canyon river" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="gallery-item-caption">Antelope Canyon, USA</span>
+      </div>
+    </div>
+
+    <div class="gallery-item fade-in" onclick="openLightbox(this)">
+      <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80" alt="Mountain lake" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="gallery-item-caption">Dolomites, Italy</span>
+      </div>
+    </div>
+
+    <div class="gallery-item fade-in" style="transition-delay:0.1s" onclick="openLightbox(this)">
+      <img src="https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=600&q=80" alt="City lights at night" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="gallery-item-caption">Hong Kong</span>
+      </div>
+    </div>
+
+    <div class="gallery-item fade-in" onclick="openLightbox(this)">
+      <img src="https://images.unsplash.com/photo-1513415431991-0c0ad92b1e1d?w=600&q=80" alt="Rainforest waterfall" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="gallery-item-caption">Costa Rica</span>
+      </div>
+    </div>
+
+    <div class="gallery-item fade-in" style="transition-delay:0.05s" onclick="openLightbox(this)">
+      <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=600&q=80" alt="Historic canal" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="gallery-item-caption">Venice, Italy</span>
+      </div>
+    </div>
+
+    <div class="gallery-item fade-in" style="transition-delay:0.1s" onclick="openLightbox(this)">
+      <img src="https://images.unsplash.com/photo-1530841377377-3ff06c0ca713?w=600&q=80" alt="Safari plains" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="gallery-item-caption">Serengeti, Tanzania</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-image fade-in">
+    <!-- Replace with your own portrait photo -->
+    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=700&q=80" alt="Portrait" loading="lazy">
+  </div>
+  <div class="about-text fade-in">
+    <p class="section-eyebrow">About me</p>
+    <h2 class="section-title">A wanderer<br>with a camera</h2>
+    <p class="about-body">
+      I'm a travel photographer based wherever the next flight takes me. 
+      For the past eight years I've been chasing light across six continents — 
+      from the silk-road cities of Central Asia to the fjords of Norway — 
+      always searching for the quiet, unguarded moment that tells a place's true story.
+    </p>
+    <p class="about-body">
+      Photography, for me, is about slowing down. It's the discipline of actually 
+      <em>looking</em> — at texture, at people, at the way afternoon light turns 
+      a dusty street into something luminous.
+    </p>
+    <a href="#contact" class="btn">
+      Get in touch
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <div class="about-signature">Your Name</div>
+  </div>
+</section>
+
+<!-- FOOTER / CONTACT -->
+<footer id="contact">
+  <p class="footer-eyebrow">Let's connect</p>
+  <h2 class="footer-title">Say hello</h2>
+  <ul class="footer-links">
+    <li><a href="mailto:you@email.com">Email</a></li>
+    <li><a href="#" target="_blank">Instagram</a></li>
+    <li><a href="#" target="_blank">Google Photos</a></li>
+    <li><a href="#" target="_blank">LinkedIn</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 Your Name · All rights reserved</p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  // Lightbox
+  function openLightbox(el) {
+    const img = el.querySelector('img');
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  // Scroll fade-in
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
